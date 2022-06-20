@@ -11,7 +11,7 @@ export const registerAction = createAction(
 
 export const registerSuccessAction = createAction(
   ActionTypes.REGISTER_SUCCESS,
-  props<{ currentUserInterface: CurrentUserInterface }>()
+  props<{ currentUser: CurrentUserInterface }>()
 );
 
 

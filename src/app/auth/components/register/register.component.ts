@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { registerAction } from '../../store/actions/register.action';
 import { isSubmittingSelector } from '../../store/selectors';
+import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 
 @Component({
   selector: 'mc-register',
@@ -37,6 +38,9 @@ export class RegisterComponent implements OnInit{
 
   onSubmit() : void{
     console.log(this.form.value, this.form.valid);
-    this.store.dispatch(registerAction(this.form.value));
+    const request: RegisterRequestInterface = {
+      user: this.form.value
+    }
+    this.store.dispatch(registerAction({request}));
   }
 }
