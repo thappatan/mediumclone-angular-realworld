@@ -15,11 +15,11 @@ export class RegisterComponent implements OnInit{
   form!: FormGroup;
   isSubmitting$!: Observable<boolean>;
 
-  constructor(private fb: FormBuilder, private store: Store){}
+  constructor(private fb: FormBuilder, private store: Store,){}
 
   ngOnInit(): void {
     this.initialzeForm();
-    this.initialzeValues()
+    this.initialzeValues();
   }
 
   initialzeValues(): void{
