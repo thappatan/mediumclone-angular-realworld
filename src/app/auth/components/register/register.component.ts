@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { BackendErrorInterface } from 'src/app/shared/types/backendError.interface';
 
 import { registerAction } from '../../store/actions/register.action';
-import { isSubmittingSelector } from '../../store/selectors';
+import {
+  isSubmittingSelector,
+  validationErrorsSelector,
+} from '../../store/selectors';
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
 
 @Component({
@@ -12,35 +16,37 @@ import { RegisterRequestInterface } from '../../types/registerRequest.interface'
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit {
   form!: FormGroup;
   isSubmitting$!: Observable<boolean>;
+  backendErrors$!: Observable<BackendErrorInterface | null>;
 
-  constructor(private fb: FormBuilder, private store: Store,){}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
     this.initialzeForm();
     this.initialzeValues();
   }
 
-  initialzeValues(): void{
+  initialzeValues(): void {
     this.isSubmitting$ = this.store.pipe(select(isSubmittingSelector));
+    this.backendErrors$ = this.store.pipe(select(validationErrorsSelector));
   }
 
-  initialzeForm(): void{
+  initialzeForm(): void {
     console.log('initialzeForm');
     this.form = this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['',Validators.required]
-    })
+      password: ['', Validators.required],
+    });
   }
 
-  onSubmit() : void{
+  onSubmit(): void {
     console.log(this.form.value, this.form.valid);
     const request: RegisterRequestInterface = {
-      user: this.form.value
-    }
-    this.store.dispatch(registerAction({request}));
+      user: this.form.value,
+    };
+    this.store.dispatch(registerAction({ request }));
   }
 }
