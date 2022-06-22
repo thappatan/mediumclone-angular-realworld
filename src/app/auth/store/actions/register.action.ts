@@ -3,20 +3,20 @@ import { BackendErrorInterface } from 'src/app/shared/types/backendError.interfa
 import { CurrentUserInterface } from 'src/app/shared/types/currentUser.interface';
 
 import { RegisterRequestInterface } from '../../types/registerRequest.interface';
-import { ActionTypes } from '../actionTypes';
+import { RegisterActionTypes } from '../actionTypes';
 
 export const registerAction = createAction(
-  ActionTypes.REGISTER,
+  RegisterActionTypes.REGISTER,
   props<{ request: RegisterRequestInterface }>()
 );
 
 export const registerSuccessAction = createAction(
-  ActionTypes.REGISTER_SUCCESS,
+  RegisterActionTypes.REGISTER_SUCCESS,
   props<{ currentUser: CurrentUserInterface }>()
 );
 
 
 export const registerFailureAction = createAction(
-  ActionTypes.REGISTER_FAILURE,
+  RegisterActionTypes.REGISTER_FAILURE,
   props<{errors: BackendErrorInterface}>()
 );
