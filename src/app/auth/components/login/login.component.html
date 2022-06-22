@@ -6,6 +6,10 @@
         <p class="text-xs-center">
           <a [routerLink]="['/register']">Need an account?</a>
         </p>
+        <mc-backend-error-messages
+          *ngIf="backendErrors$ | async"
+          [backendErrors]="backendErrors$ | async"
+        ></mc-backend-error-messages>
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <fieldset>
             <fieldset class="form-group">
@@ -24,7 +28,11 @@
                 formControlName="password"
               />
             </fieldset>
-            <button [disabled]="isSubmitting$ | async" class="btn btn-lg btn-primary pull-xs-right" type="submit">
+            <button
+              [disabled]="isSubmitting$ | async"
+              class="btn btn-lg btn-primary pull-xs-right"
+              type="submit"
+            >
               Sign in
             </button>
           </fieldset>
