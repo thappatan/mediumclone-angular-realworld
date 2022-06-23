@@ -12,6 +12,11 @@ export const isSubmittingSelector = createSelector(
   (authState: AuthStateInterface) => authState.isSubmitting
 );
 
+export const currentUserSelector = createSelector(
+  authFeatureSelector,
+  (authState: AuthStateInterface) => authState.currentUser
+);
+
 export const validationErrorsSelector = createSelector(
   authFeatureSelector,
   (authState: AuthStateInterface) => authState.validationErrors
