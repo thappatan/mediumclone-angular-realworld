@@ -15,7 +15,7 @@ import {
 
 @Injectable()
 export class LoginEffect {
-  register$ = createEffect(() =>
+  login$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loginAction),
       switchMap(({ request }) => {
