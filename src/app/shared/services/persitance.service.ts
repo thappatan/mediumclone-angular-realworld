@@ -12,10 +12,18 @@ export class PersistanceService {
 
   get(key: string): any {
     try {
-      return JSON.parse(localStorage.getItem(key) || "");
+      return JSON.parse(localStorage.getItem(key) || '');
     } catch (e) {
       console.error('Error getting data from localStorage', e);
       return null;
+    }
+  }
+
+  remove(key: string): void {
+    try {
+      localStorage.removeItem(key);
+    } catch (e) {
+      console.error('Error can not remove from localStorage', e);
     }
   }
 }

@@ -11,6 +11,7 @@ import {
   loginAction,
   loginFailureAction,
   loginSuccessAction,
+  logoutAction,
 } from '../actions/login.action';
 
 @Injectable()
@@ -31,6 +32,15 @@ export class LoginEffect {
             );
           })
         );
+      })
+    )
+  );
+
+  logout$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(logoutAction),
+      tap(() => {
+        this.persistance.remove('accessToken');
       })
     )
   );

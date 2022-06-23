@@ -19,3 +19,5 @@ export const loginFailureAction = createAction(
   AuthActionType.LOGIN_FAILURE,
   props<{ errors: BackendErrorInterface }>()
 );
+
+export const logoutAction = createAction(AuthActionType.LOGOUT);
