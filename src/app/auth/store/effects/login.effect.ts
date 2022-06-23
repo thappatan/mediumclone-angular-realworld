@@ -36,13 +36,15 @@ export class LoginEffect {
     )
   );
 
-  logout$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(logoutAction),
-      tap(() => {
-        this.persistance.remove('accessToken');
-      })
-    )
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(logoutAction),
+        tap(() => {
+          this.persistance.remove('accessToken');
+        })
+      ),
+    { dispatch: false }
   );
 
   redirectAfterSubmit$ = createEffect(
