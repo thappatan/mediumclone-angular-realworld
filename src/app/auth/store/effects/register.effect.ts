@@ -21,7 +21,9 @@ export class RegisterEffect {
       switchMap(({ request }) => {
         return this.authService.register(request).pipe(
           map((currentUser: CurrentUserInterface) => {
-            this.persistanceService.set('accessToken', currentUser.token);
+            this.persistanceService.set('accessToken', {
+              token: currentUser.token,
+            });
             return registerSuccessAction({ currentUser });
           }),
 
@@ -35,14 +37,15 @@ export class RegisterEffect {
     )
   );
 
-  redirectAfterSubmit$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(registerSuccessAction),
-      tap(() => {
-        this.router.navigateByUrl('/');
-      })
-    ),
-    {dispatch: false}
+  redirectAfterSubmit$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(registerSuccessAction),
+        tap(() => {
+          this.router.navigateByUrl('/');
+        })
+      ),
+    { dispatch: false }
   );
 
   constructor(

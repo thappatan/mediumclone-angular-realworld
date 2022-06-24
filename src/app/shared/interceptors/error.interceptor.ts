@@ -7,11 +7,13 @@ import {
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { catchError, Observable, throwError } from 'rxjs';
+import { logoutAction } from 'src/app/auth/store/actions/login.action';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -23,7 +25,7 @@ export class ErrorInterceptor implements HttpInterceptor {
           errorResp instanceof HttpErrorResponse &&
           errorResp.status === 401
         ) {
-          console.log(errorResp);
+          this.store.dispatch(logoutAction());
         }
 
         return throwError(errorResp);

@@ -12,6 +12,7 @@ import {
   registerFailureAction,
   registerSuccessAction,
 } from './actions/register.action';
+import { userAction, userFailureAction, userSuccessAction } from './actions/user.action';
 
 const initialState: AuthStateInterface = {
   isSubmitting: false,
@@ -82,7 +83,30 @@ const authReducer = createReducer(
       validationErrors: null,
       currentUser: null,
     })
-  )
+  ),
+  on(
+    userAction,
+    (state): AuthStateInterface => ({
+      ...state,
+      validationErrors: null,
+    })
+  ),
+  on(
+    userSuccessAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      isLoggedIn: true,
+      currentUser: action.currentUser,
+    })
+  ),
+  on(
+    userFailureAction,
+    (state, action): AuthStateInterface => ({
+      ...state,
+      isLoggedIn: false,
+      validationErrors: action.errors,
+    })
+  ),
 );
 
 export function reducers(state: AuthStateInterface, action: Action) {

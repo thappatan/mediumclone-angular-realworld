@@ -22,7 +22,7 @@ export class LoginEffect {
       switchMap(({ request }) => {
         return this.authService.loign(request).pipe(
           map((currentUser: CurrentUserInterface) => {
-            this.persistance.set('accessToken', currentUser.token);
+            this.persistance.set('accessToken', {token: currentUser.token});
             return loginSuccessAction({ currentUser });
           }),
 
@@ -42,6 +42,7 @@ export class LoginEffect {
         ofType(logoutAction),
         tap(() => {
           this.persistance.remove('accessToken');
+          this.router.navigateByUrl('/login');
         })
       ),
     { dispatch: false }

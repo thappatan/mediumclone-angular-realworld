@@ -19,13 +19,16 @@ export class TokenInterceptor implements HttpInterceptor {
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
     this.persistanceService = this.injector.get(PersistanceService);
-    const token: string = this.persistanceService.get('accessToken');
-    req = req.clone({
-      setHeaders: {
-        Authorization: `Token ${token}`,
-        'Content-Type': 'application/json',
-      },
-    });
+    const token: any = this.persistanceService.get('accessToken');
+    if (token !== null) {
+      req = req.clone({
+        setHeaders: {
+          Authorization: `Token ${token?.token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+    }
+
     return next.handle(req);
   }
 }
