@@ -14,6 +14,7 @@ import { HomeModule } from './home/home.module';
 
 import { TokenInterceptor } from './shared/interceptors/token.interceptor';
 import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 @NgModule({
   declarations: [AppComponent],
@@ -41,6 +42,7 @@ import { ErrorInterceptor } from './shared/interceptors/error.interceptor';
       useClass: ErrorInterceptor,
       multi: true,
     },
+    AuthGuard
   ],
   bootstrap: [AppComponent],
 })

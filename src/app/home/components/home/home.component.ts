@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   }
 
   initialzeValues(): void {
+    this.onUser();
     this.currentUser$ = this.store.pipe(select(currentUserSelector));
   }
 
